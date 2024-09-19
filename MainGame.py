@@ -21,7 +21,7 @@ class MainGame:
 
         self.clock = pygame.time.Clock()
 
-        self.window = pygame.display.set_mode((W, H))
+        self.window = pygame.display.set_mode((W, H), pygame.FULLSCREEN)
 
         self.player = Player("Images/Player.png")
 
@@ -31,7 +31,6 @@ class MainGame:
         self.asteroids = AsteroidManager(self)
 
         self.textlayer = TextLayer("Hello", position=(0, 0))
-
 
     def update(self):
         self.player.update(self.keys, self.dt)
@@ -68,6 +67,7 @@ class MainGame:
                 self.restart()
 
     def restart(self):
+        self.score = 0
         self.player = Player("Images/Player.png")
 
         self.player_s = pygame.sprite.Group()

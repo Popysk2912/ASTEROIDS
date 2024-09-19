@@ -4,29 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7e02c3c-9237-4183-814a-75da8034aac1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Archers.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AsteroidManager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GameObjects.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Images/Big_Asteroid.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Images/Laser.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Images/Medium_Asteroid.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Images/Player.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Images/Small_Asteroid.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainGame.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainGame.spec" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/Images/Laser.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/Images/Medium_Asteroid.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/Images/Player.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/Images/Small_Asteroid.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/game.zip" afterDir="false" />
+    <list default="true" id="d7e02c3c-9237-4183-814a-75da8034aac1" name="Changes" comment="без шейдеров">
+      <change afterPath="$PROJECT_DIR$/Images/p_emu.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameObjects.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameObjects.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainGame.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainGame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,15 +34,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Python.MainGame.executor": "Run",
-    "Python.Player.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python.MainGame.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Player.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projects\New\Python\Archers\Images" />
@@ -110,9 +94,28 @@
       <option name="presentableId" value="Default" />
       <updated>1726397358283</updated>
     </task>
+    <task id="LOCAL-00001" summary="без шейдеров">
+      <option name="closed" value="true" />
+      <created>1726656998433</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1726656998433</updated>
+    </task>
+    <task id="LOCAL-00002" summary="без шейдеров">
+      <option name="closed" value="true" />
+      <created>1726657012767</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1726657012767</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="без шейдеров" />
+    <option name="LAST_COMMIT_MESSAGE" value="без шейдеров" />
   </component>
 </project>

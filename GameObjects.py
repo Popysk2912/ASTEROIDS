@@ -185,7 +185,7 @@ class Medium_Asteroid(Small_Asteroid):
                                        random.randrange(*VELOCITY_MEDIUM_ASTEROID))
 
     def explode(self):
-        for _ in range(3):
+        for _ in range(ASTEROIDS_COUNT):
             a = Small_Asteroid("Images/Small_Asteroid.png", self.group, self.game)
             a.setPos(self.pos.copy())
             self.group.add(a)
@@ -204,7 +204,7 @@ class Big_Asteroid(Small_Asteroid):
                                        random.randrange(*VELOCITY_BIG_ASTEROID))
 
     def explode(self):
-        for _ in range(3):
+        for _ in range(ASTEROIDS_COUNT):
             a = Medium_Asteroid("Images/Medium_Asteroid.png", self.group, self.game)
             a.setPos(self.pos.copy())
             self.group.add(a)
@@ -216,13 +216,13 @@ class Big_Asteroid(Small_Asteroid):
 
 
 class TextLayer:
-    def __init__(self, text, font_name='Arial', font_size=30, color=(255, 255, 255), position=(0, 0)):
+    def __init__(self, text, font_name='Images/p_emu.otf', font_size=30, color=(255, 255, 255), position=(0, 0)):
         self.text = text
         self.font_name = font_name
         self.font_size = font_size
         self.color = color
         self.position = position
-        self.font = pygame.font.SysFont(self.font_name, self.font_size)
+        self.font = pygame.font.Font(self.font_name, self.font_size)
         self.surface = self.font.render(self.text, True, self.color)
         self.rect = self.surface.get_rect(topleft=self.position)
 
