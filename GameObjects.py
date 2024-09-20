@@ -57,10 +57,9 @@ class Bullet(GameObject):
 
 
 class Player(GameObject):
-    def __init__(self, image):
+    def __init__(self, image, game):
         super().__init__(image)
 
-        self.pos = pygame.Vector2(400.0, 300.0)
         self.velocity = pygame.Vector2(0, 0)
         self.acceleration = 600
         self.friction = 0.999
@@ -71,6 +70,10 @@ class Player(GameObject):
 
         self.shoot_time = 0
         self.cd = 0.5
+        self.game = game
+        self.pos = pygame.Vector2(self.game.window.get_size()[0] / 2, self.game.window.get_size()[1] / 2)
+        self.rect.center = self.pos
+        print(f"Player position: {self.pos}, Rect center: {self.rect.center}")
 
     def get_bullets_group(self):
         return self.bullets
@@ -89,14 +92,20 @@ class Player(GameObject):
         self.shoot_time += self.dt
 
     def check_bounds(self):
-        if self.pos.x >= 800 + 32:
-            self.pos.x = -31
-        elif self.pos.x <= 0 - 32:
-            self.pos.x = 831
-        if self.pos.y >= 600 + 32:
-            self.pos.y = -31
-        elif self.pos.y <= 0 - 32:
-            self.pos.y = 631
+        window_width, window_height = self.game.window.get_size()
+        image_width, image_height = self.image.get_size()
+
+        # Проверка границ по оси X
+        if self.pos.x > window_width:
+            self.pos.x = -image_width
+        elif self.pos.x < -image_width:
+            self.pos.x = window_width
+
+        # Проверка границ по оси Y
+        if self.pos.y > window_height:
+            self.pos.y = -image_height
+        elif self.pos.y < -image_height:
+            self.pos.y = window_height
 
     def handle_input(self, m_keys):
         if m_keys[pygame.K_UP] or m_keys[pygame.K_w]:
@@ -142,7 +151,6 @@ class Player(GameObject):
 class Small_Asteroid(GameObject):
     def __init__(self, image, group, game):
         super().__init__(image)
-        self.image_size = self.image.get_size()
         self.velocity = pygame.Vector2(random.randrange(*VELOCITY_SMALL_ASTEROID),
                                        random.randrange(*VELOCITY_SMALL_ASTEROID))
         self.rot_angle = random.randint(*ROTATION_SMALL_ASTEROID)
@@ -162,15 +170,20 @@ class Small_Asteroid(GameObject):
         self.rotate(self.rot_angle)
 
     def check_bounds(self):
-        if self.pos.x >= 800 + self.image_size[0]:
-            self.pos.x = -self.image_size[0] + 1
-        elif self.pos.x <= -self.image_size[0]:
-            self.pos.x = 800 + self.image_size[0] - 1
+        window_width, window_height = self.game.window.get_size()
+        image_width, image_height = self.image.get_size()
 
-        if self.pos.y >= 600 + self.image_size[1]:
-            self.pos.y = -self.image_size[1] + 1
-        elif self.pos.y <= -self.image_size[1]:
-            self.pos.y = 600 + self.image_size[1] - 1
+        # Проверка границ по оси X
+        if self.pos.x > window_width:
+            self.pos.x = -image_width
+        elif self.pos.x < -image_width:
+            self.pos.x = window_width
+
+        # Проверка границ по оси Y
+        if self.pos.y > window_height:
+            self.pos.y = -image_height
+        elif self.pos.y < -image_height:
+            self.pos.y = window_height
 
     def kill(self):
         super().kill()

@@ -7,19 +7,12 @@ class AsteroidManager:
     def __init__(self, game):
         self.asteroids_s = pygame.sprite.Group()
 
-        self.spawn_points = [
-            pygame.Vector2(0, -100), pygame.Vector2(100, -100),
-            pygame.Vector2(300, -100), pygame.Vector2(200, -100),
-            pygame.Vector2(400, -100), pygame.Vector2(500, -100),
-            pygame.Vector2(600, -100)
-        ]
-
         self.time = 0
         self.spawn_time = 5
         self.game = game
 
     def get_random_spawn_point(self):
-        return random.choice(self.spawn_points)
+        return pygame.Vector2(random.randrange(0, self.game.window.get_size()[0]), -100)
 
     def spawn_new_asteroid(self):
         new_asteroid = Big_Asteroid("Images/Big_Asteroid.png", self.get_asteroid_group(), self.game)

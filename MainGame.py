@@ -81,6 +81,8 @@ class SettingsMenu:
             Button("800x600", (300, 200)),
             Button("1024x768", (300, 300)),
             Button("1280x720", (300, 400)),
+            Button("1920x1080", (500, 400)),
+            Button("1536x866", (100, 400))
         ]
         self.back_button = Button("Back", (300, 500))
 
@@ -91,7 +93,6 @@ class SettingsMenu:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-
             # Check for resolution changes
             if self.resolution_buttons[0].is_clicked():
                 self.program.set_resolution((800, 600))
@@ -99,6 +100,12 @@ class SettingsMenu:
                 self.program.set_resolution((1024, 768))
             if self.resolution_buttons[2].is_clicked():
                 self.program.set_resolution((1280, 720))
+            if self.resolution_buttons[3].is_clicked():
+                self.program.set_resolution((1920, 1080))
+            if self.resolution_buttons[4].is_clicked():
+                self.program.set_resolution((1536, 866))
+            else:
+                pass
 
             # Back to main menu
             if self.back_button.is_clicked():
@@ -120,13 +127,12 @@ class MainProgram:
     def __init__(self):
         set_window_position(0, 0)
         pygame.init()
-        self.winsize = (800, 600)
-        self.window = pygame.display.set_mode(self.winsize, pygame.RESIZABLE)
+        self.window = pygame.display.set_mode((800, 600))
 
         # Initialize menus
         self.menu = MainMenu(self.window, self)
         self.settings_menu = SettingsMenu(self.window, self)
-        self.game = MainGame(self.window)
+        self.game = MainGame(self.window, self)
 
         # Initially open the main menu
         self.menu.run()
@@ -138,15 +144,16 @@ class MainProgram:
         self.settings_menu.run()
 
     def start_game(self):
+        self.game = MainGame(self.window, self)
         self.game.run()
 
     def set_resolution(self, resolution):
-        self.winsize = resolution
-        self.window = pygame.display.set_mode(self.winsize)
+        print(f"Resolution set to: {resolution}")
+        self.window = pygame.display.set_mode(resolution)
 
 
 class MainGame:
-    def __init__(self, window):
+    def __init__(self, window, prog):
         self.window = window
         self.score = 0
         self.dt = 0
@@ -154,7 +161,7 @@ class MainGame:
 
         self.keys = None
 
-        self.player = Player("Images/Player.png")
+        self.player = Player("Images/Player.png", self)
         self.player_s = pygame.sprite.Group()
         self.player_s.add(self.player)
 
@@ -162,11 +169,18 @@ class MainGame:
 
         self.textlayer = TextLayer("Hello", position=(0, 0))
 
+        self.running = True
+        self.menu_b = Button("M", (0, 100), size=(32, 32))
+        self.prog = prog
+
     def update(self):
         self.player.update(self.keys, self.dt)
         self.asteroids.update(self.dt)
         self.check_collisions()
         self.textlayer.update_text(str(self.score))
+        if self.menu_b.is_clicked():
+            self.running = False
+            self.prog.open_menu()
 
     def check_collisions(self):
         if self.player.check_collision(self.asteroids.get_asteroid_group()):
@@ -175,16 +189,18 @@ class MainGame:
         for b in self.player.get_bullets_group():
             b.check_collision(self.asteroids.get_asteroid_group())
 
+
     def draw(self):
         self.window.fill((10, 10, 25))
         self.player_s.draw(self.window)
         self.player.bullets.draw(self.window)
         self.asteroids.draw(self.window)
         self.textlayer.draw(self.window)
+        self.menu_b.draw(self.window)
         pygame.display.update()
 
     def run(self):
-        while True:
+        while self.running:
             self.keys = pygame.key.get_pressed()
             self.dt = self.clock.tick(FPS) / 1000
             for e in pygame.event.get():
@@ -198,7 +214,7 @@ class MainGame:
 
     def restart(self):
         self.score = 0
-        self.player = Player("Images/Player.png")
+        self.player = Player("Images/Player.png", self)
 
         self.player_s = pygame.sprite.Group()
         self.player_s.add(self.player)
