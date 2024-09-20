@@ -214,7 +214,7 @@ class Big_Asteroid(Small_Asteroid):
         self.explode()
         super().kill()
 
-
+ 
 class TextLayer:
     def __init__(self, text, font_name='Images/p_emu.otf', font_size=30, color=(255, 255, 255), position=(0, 0)):
         self.text = text
