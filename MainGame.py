@@ -1,7 +1,6 @@
-import sys
-
 from AsteroidManager import AsteroidManager
 from GameObjects import *
+from Menu import *
 import os
 
 
@@ -9,120 +8,7 @@ import os
 def set_window_position(x, y):
     os.environ['SDL_VIDEO_WINDOW_POS'] = f"{x},{y}"
 
-# Button class to handle the buttons in the menu
-class Button:
-    def __init__(self, text, position, size=(200, 50), font_size=36):
-        self.text = text
-        self.position = position
-        self.size = size
-        self.font = pygame.font.SysFont(None, font_size)
-        self.color = (255, 255, 255)
-        self.hover_color = (200, 200, 200)
-        self.button_rect = pygame.Rect(position, size)
 
-    def draw(self, window):
-        mouse_pos = pygame.mouse.get_pos()
-        color = self.hover_color if self.button_rect.collidepoint(mouse_pos) else self.color
-
-        pygame.draw.rect(window, color, self.button_rect)
-        text_surf = self.font.render(self.text, True, (0, 0, 0))
-        text_rect = text_surf.get_rect(center=self.button_rect.center)
-        window.blit(text_surf, text_rect)
-
-    def is_clicked(self):
-        mouse_pos = pygame.mouse.get_pos()
-        return self.button_rect.collidepoint(mouse_pos) and pygame.mouse.get_pressed()[0]
-
-
-# Main Menu class to display the menu and handle button interactions
-class MainMenu:
-    def __init__(self, window, program):
-        self.window = window
-        self.program = program
-        self.start_button = Button("Start Game", (300, 200))
-        self.settings_button = Button("Settings", (300, 300))
-        self.quit_button = Button("Quit Game", (300, 400))
-
-    def run(self):
-        menu_running = True
-        while menu_running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-
-            # Check for button clicks
-            if self.start_button.is_clicked():
-                menu_running = False
-                self.program.start_game()
-            if self.settings_button.is_clicked():
-                menu_running = False
-                self.program.open_settings()
-            if self.quit_button.is_clicked():
-                pygame.quit()
-                sys.exit()
-
-            self.draw()
-            pygame.display.update()
-
-    def draw(self):
-        self.window.fill((50, 50, 50))  # Menu background color
-        self.start_button.draw(self.window)
-        self.settings_button.draw(self.window)
-        self.quit_button.draw(self.window)
-
-
-# Settings Menu class to change screen resolution
-class SettingsMenu:
-    def __init__(self, window, program):
-        self.window = window
-        self.program = program
-        self.resolution_buttons = [
-            Button("800x600", (300, 200)),
-            Button("1024x768", (300, 300)),
-            Button("1280x720", (300, 400)),
-            Button("1920x1080", (500, 400)),
-            Button("1536x866", (100, 400))
-        ]
-        self.back_button = Button("Back", (300, 500))
-
-    def run(self):
-        settings_running = True
-        while settings_running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-            # Check for resolution changes
-            if self.resolution_buttons[0].is_clicked():
-                self.program.set_resolution((800, 600))
-            if self.resolution_buttons[1].is_clicked():
-                self.program.set_resolution((1024, 768))
-            if self.resolution_buttons[2].is_clicked():
-                self.program.set_resolution((1280, 720))
-            if self.resolution_buttons[3].is_clicked():
-                self.program.set_resolution((1920, 1080))
-            if self.resolution_buttons[4].is_clicked():
-                self.program.set_resolution((1536, 866))
-            else:
-                pass
-
-            # Back to main menu
-            if self.back_button.is_clicked():
-                settings_running = False
-                self.program.open_menu()
-
-            self.draw()
-            pygame.display.update()
-
-    def draw(self):
-        self.window.fill((50, 50, 50))  # Settings background color
-        for button in self.resolution_buttons:
-            button.draw(self.window)
-        self.back_button.draw(self.window)
-
-
-# Main Program class that manages the game, menu, and settings
 class MainProgram:
     def __init__(self):
         set_window_position(0, 0)
@@ -148,8 +34,11 @@ class MainProgram:
         self.game.run()
 
     def set_resolution(self, resolution):
-        print(f"Resolution set to: {resolution}")
         self.window = pygame.display.set_mode(resolution)
+
+    def update_win_size(self):
+        self.menu.update_buttons()
+        self.settings_menu.update_buttons()
 
 
 class MainGame:
@@ -170,8 +59,8 @@ class MainGame:
         self.textlayer = TextLayer("Hello", position=(0, 0))
 
         self.running = True
-        self.menu_b = Button("M", (0, 100), size=(32, 32))
         self.prog = prog
+        self.menu_b = Button("M", (0.02, 0.1), self.prog, size=(32, 32))
 
     def update(self):
         self.player.update(self.keys, self.dt)
@@ -188,7 +77,6 @@ class MainGame:
             self.player.stop()
         for b in self.player.get_bullets_group():
             b.check_collision(self.asteroids.get_asteroid_group())
-
 
     def draw(self):
         self.window.fill((10, 10, 25))
@@ -223,4 +111,4 @@ class MainGame:
 
 
 if __name__ == "__main__":
-    prog = MainProgram()
+    prog_ = MainProgram()

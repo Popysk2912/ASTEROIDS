@@ -73,7 +73,6 @@ class Player(GameObject):
         self.game = game
         self.pos = pygame.Vector2(self.game.window.get_size()[0] / 2, self.game.window.get_size()[1] / 2)
         self.rect.center = self.pos
-        print(f"Player position: {self.pos}, Rect center: {self.rect.center}")
 
     def get_bullets_group(self):
         return self.bullets
